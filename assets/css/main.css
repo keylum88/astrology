@@ -1,0 +1,43 @@
+@font-face {
+
+}
+
+:root {
+
+}
+
+html, body {
+
+    font-family: arial;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Beleren';
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+body {
+
+}
+
+h1 {
+
+}
+
+.loader img {
+
+    max-width: 30px;
+    height: auto;
+
+}
+
+button, input {
+
+}
+
+#close-fullscreen-btn { display: none; }
