@@ -1,7 +1,6 @@
 const localStorage = window.localStorage
 const body = document.querySelector('body')
 
-
 var view = null
 
 // Makes a command to the system and outputs return value to specified element by id
@@ -66,6 +65,8 @@ function findView(data) {
   return find[1];
 
 }
+
+// Initialize app
 
 callServer('get-astrology').then(response=>{return response.text()}).then(result=>{
 

@@ -2,6 +2,8 @@
     
     $uniqueID = uniqid();
 
+    $interpsFilePath = 'assets/data/basic-interps.json';
+
     // If there is a query string
     if ( !empty($_GET) ) {
 
@@ -10,7 +12,35 @@
         switch ($cmd) {
 
             case 'get-astrology':
-                echo "hello aliens";
+                
+                $masterFile = file_get_contents('docs/_MASTER.txt');
+                $definitions = preg_match_all('/[0-9A-Z]([A-Z]|[0-9])[0-9A-Z\s]+/', $masterFile, $matches);
+                
+                $json = '';
+                $iCount = 0;
+
+                foreach ($matches[0] as $title) {
+
+                    $possibleDefs = explode(PHP_EOL, $title);
+
+                    foreach ( $possibleDefs as $possibleDef) {
+                        
+                        $possibleDef = trim($possibleDef);
+                        if ($possibleDef === '') continue;
+                        if ( strlen($possibleDef) === 1) continue; 
+                        
+                        $json .= '"'.$possibleDef.'": "",'.PHP_EOL;
+                        
+                        $iCount++;
+
+                    }
+
+                }
+
+                $jsonFile = file_get_contents($interpsFilePath);
+                echo $jsonFile;
+                file_put_contents($interpsFilePath, $json);
+
                 exit();
                 break;
 
