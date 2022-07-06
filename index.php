@@ -13,33 +13,11 @@
 
             case 'get-astrology':
                 
-                $masterFile = file_get_contents('docs/_MASTER.txt');
-                $definitions = preg_match_all('/[0-9A-Z]([A-Z]|[0-9])[0-9A-Z\s]+/', $masterFile, $matches);
-                
-                $json = '';
-                $iCount = 0;
+                $interpsFile = file_get_contents($interpsFilePath);
+                $interpsJSON = json_decode($interpsFile);
+                $bulkTextFile = file_get_contents('assets/data/interps-bulk.txt');
 
-                foreach ($matches[0] as $title) {
-
-                    $possibleDefs = explode(PHP_EOL, $title);
-
-                    foreach ( $possibleDefs as $possibleDef) {
-                        
-                        $possibleDef = trim($possibleDef);
-                        if ($possibleDef === '') continue;
-                        if ( strlen($possibleDef) === 1) continue; 
-                        
-                        $json .= '"'.$possibleDef.'": "",'.PHP_EOL;
-                        
-                        $iCount++;
-
-                    }
-
-                }
-
-                $jsonFile = file_get_contents($interpsFilePath);
-                echo $jsonFile;
-                file_put_contents($interpsFilePath, $json);
+                echo $interpsFile.'|||'.$bulkTextFile;
 
                 exit();
                 break;

@@ -70,7 +70,48 @@ function findView(data) {
 
 callServer('get-astrology').then(response=>{return response.text()}).then(result=>{
 
-  console.log(result)
+  let parse = result.split('|||')
+  let json = JSON.parse(parse[0])
+  let txt = parse[1]
+
+  let count = 0;
+  for (title in json) {
+
+    let findDefinitionData = new RegExp(title+'[\\s\\S]*?[A-Z][A-Z]')
+    
+    let definitionData = txt.match(findDefinitionData)
+
+    if (definitionData !== null) {
+    
+      let splitByNewLine = definitionData[0].split("\n")
+      
+      json[title] = []
+      splitByNewLine.forEach(paragraph=>{
+
+        paragraph = paragraph.replace(/\r/, '').trim()
+        if (paragraph.length > 4 && paragraph.match(/[A-Z][A-Z][A-Z]/) === null) {
+        
+          json[title].push(paragraph)
+        
+        }
+
+      })
+
+      count++
+  
+    }
+
+    else {
+
+      console.log(title+' not found.')
+
+    }
+
+  }
+
+  console.log(count)
+  console.log(json)
+
   displayDashboard()
 
 })
